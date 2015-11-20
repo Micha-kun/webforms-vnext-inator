@@ -13,15 +13,12 @@ namespace WebForms.vNextinator
             _isReusable = isReusable;
         }
 
-        bool IHttpHandler.IsReusable
+        public bool IsReusable
         {
-            get
-            {
-                return _isReusable;
-            }
+            get { return _isReusable; }
         }
 
-        void IHttpHandler.ProcessRequest(HttpContext context)
+        public void ProcessRequest(HttpContext context)
         {
             var task = ProcessRequestAsync(context);
             if (task.Status == TaskStatus.Created)
@@ -35,7 +32,7 @@ namespace WebForms.vNextinator
 
         protected abstract Task ProcessRequestAsync(HttpContext context);
 
-        IAsyncResult IHttpAsyncHandler.BeginProcessRequest(HttpContext context, AsyncCallback cb, object extraData)
+        public IAsyncResult BeginProcessRequest(HttpContext context, AsyncCallback cb, object extraData)
         {
             var task = ProcessRequestAsync(context);
             if (cb != null)
@@ -51,7 +48,7 @@ namespace WebForms.vNextinator
             return task;
         }
 
-        void IHttpAsyncHandler.EndProcessRequest(IAsyncResult result)
+        public void EndProcessRequest(IAsyncResult result)
         {
             ((Task)result).Wait();
         }
