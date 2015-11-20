@@ -9,31 +9,23 @@ namespace SuperControlTest.DI
     ///  Unity dependency resolver. Allows to decouple configuration from Resolver. You can reuse UnityDependentyResolver
     ///   and configure it in each app without touching it.
     /// </summary>
-    public sealed class UnityDependencyResolver : IDependencyResolver
+    public sealed class UnityDependencyResolver : AbstractDependencyResolver<IUnityContainer>
     {
-        private readonly IUnityContainer _container;
 
-        private UnityDependencyResolver()
+        public UnityDependencyResolver()
         {
-            _container = new UnityContainer();
+            container = new UnityContainer();
         }
 
-        public object GetService(Type serviceType)
+        public override object GetService(Type serviceType)
         {
-            return _container.Resolve(serviceType);
+            return container.Resolve(serviceType);
         }
 
-        public IEnumerable<object> GetServices(Type serviceType)
+        public override IEnumerable<object> GetServices(Type serviceType)
         {
-            return _container.ResolveAll(serviceType);
+            return container.ResolveAll(serviceType);
         }
 
-        public static IDependencyResolver ConfigureAndGet(Action<IUnityContainer> configSteps)
-        {
-            UnityDependencyResolver instance = new UnityDependencyResolver();
-            configSteps(instance._container);
-            return instance;
-
-        }
     }
 }

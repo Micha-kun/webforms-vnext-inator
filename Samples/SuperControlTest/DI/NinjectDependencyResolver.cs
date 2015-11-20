@@ -6,30 +6,21 @@ using WebForms.vNextinator;
 
 namespace SuperControlTest.DI
 {
-    public sealed class NinjectDependencyResolver : IDependencyResolver
+    public sealed class NinjectDependencyResolver : AbstractDependencyResolver<IKernel>
     {
-        private readonly StandardKernel _kernel;
-
-        private NinjectDependencyResolver()
+        public NinjectDependencyResolver()
         {
-            _kernel = new StandardKernel();
+            container = new StandardKernel();
         }
 
-        public object GetService(Type serviceType)
+        public override object GetService(Type serviceType)
         {
-            return _kernel.Get(serviceType);
+            return container.Get(serviceType);
         }
 
-        public IEnumerable<object> GetServices(Type serviceType)
+        public override IEnumerable<object> GetServices(Type serviceType)
         {
-            return _kernel.GetAll(serviceType);
-        }
-
-        public static IDependencyResolver Build(Action<IKernel> setupAction)
-        {
-            var resolver = new NinjectDependencyResolver();
-            setupAction(resolver._kernel);
-            return resolver;
+            return container.GetAll(serviceType);
         }
     }
 }

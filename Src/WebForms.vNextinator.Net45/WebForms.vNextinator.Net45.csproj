@@ -46,6 +46,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\WebForms.vNextinator.Net20\AbstractDependencyResolver.cs">
+      <Link>AbstractDependencyResolver.cs</Link>
+    </Compile>
     <Compile Include="..\WebForms.vNextinator.Net20\ControlFinder.cs">
       <Link>ControlFinder.cs</Link>
     </Compile>

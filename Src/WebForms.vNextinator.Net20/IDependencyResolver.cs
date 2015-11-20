@@ -3,10 +3,16 @@ using System.Collections.Generic;
 
 namespace WebForms.vNextinator
 {
-    public interface IDependencyResolver
+    internal interface IDependencyResolver
     {
         object GetService(Type serviceType);
-     
+
         IEnumerable<object> GetServices(Type serviceType);
     }
+
+    internal interface IDependencyResolver<TContainer> : IDependencyResolver
+    {
+        AbstractDependencyResolver<TContainer> Configure(Action<TContainer> setupAction);
+    }
+
 }
