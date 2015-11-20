@@ -11,7 +11,7 @@ namespace WebForms.vNextinator
             return _dependencyResolver ?? new DefaultDependencyResolver();
         }
 
-        public static void SetDependencyResolver(IDependencyResolver resolver)
+        public static void SetDependencyResolver<TContainer>(AbstractDependencyResolver<TContainer> resolver)
         {
             _dependencyResolver = resolver;
         }

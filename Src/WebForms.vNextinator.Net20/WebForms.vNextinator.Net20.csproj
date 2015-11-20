@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AbstractDependencyResolver.cs" />
     <Compile Include="ControlFinder.cs" />
     <Compile Include="DefaultDependencyResolver.cs" />
     <Compile Include="DependencyInjectionModule.cs" />

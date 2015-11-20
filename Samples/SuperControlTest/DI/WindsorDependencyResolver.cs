@@ -5,30 +5,24 @@ using WebForms.vNextinator;
 
 namespace SuperControlTest.DI
 {
-    public sealed class WindsorDependencyResolver : IDependencyResolver
+    public sealed class WindsorDependencyResolver : AbstractDependencyResolver<IWindsorContainer>
     {
-        private readonly IWindsorContainer _container;
 
-        private WindsorDependencyResolver()
+
+        public WindsorDependencyResolver()
         {
-            _container = new WindsorContainer();
+            container = new WindsorContainer();
         }
 
-        public object GetService(Type serviceType)
+        public override object GetService(Type serviceType)
         {
-            return _container.Resolve(serviceType);
+            return container.Resolve(serviceType);
         }
 
-        public IEnumerable<object> GetServices(Type serviceType)
+        public override IEnumerable<object> GetServices(Type serviceType)
         {
-            return (object[])_container.ResolveAll(serviceType);
+            return (object[])container.ResolveAll(serviceType);
         }
 
-        public static IDependencyResolver ConfigureAndGet(Action<IWindsorContainer> configSteps)
-        {
-            WindsorDependencyResolver instance = new WindsorDependencyResolver();
-            configSteps(instance._container);
-            return instance;
-        }
     }
 }

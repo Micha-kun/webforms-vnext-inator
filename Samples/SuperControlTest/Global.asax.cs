@@ -1,8 +1,9 @@
-using Castle.MicroKernel.Registration;
+//using Castle.MicroKernel.Registration;
+//using Microsoft.Practices.Unity;
 using SuperControlTest.DI;
+using SuperControlTest.Presenters;
 using System;
 using System.Web.Http;
-using SuperControlTest.Presenters;
 using WebForms.vNextinator;
 
 
@@ -24,7 +25,7 @@ namespace SuperControlTest
 
             //Ninject depencency resolver
             DependencyResolver.SetDependencyResolver(
-                NinjectDependencyResolver.Build(
+            new NinjectDependencyResolver().Configure(
                     kernel =>
                     {
                         kernel.Bind<IInjectionTest>().To<InjectionTest>();
@@ -32,19 +33,22 @@ namespace SuperControlTest
                     }));
 
             /* Unity dependency resolver. Allows to decouple configuration from Resolver. You can reuse UnityDependentyResolver
-             * and configure it in each app without touching it.
-            DependencyResolver.SetDependencyResolver(UnityDependencyResolver.ConfigureAndGet(container =>
-            {
-                container.RegisterType<IInjectionTest, InjectionTest>();
-                // container.RegisterType<AnotherIface, AnotherClass>();
-                //and so on...
-            })); */
+             * and configure it in each app without touching it.*/
+            //DependencyResolver.SetDependencyResolver(
+            //new UnityDependencyResolver().Configure(
+            //        container =>
+            //        {
+            //            container.RegisterType<IInjectionTest, InjectionTest>();
+            //            container.RegisterType<IDefaultPresenter, DefaultPresenter>();
+            //        }));
 
             // Windsor dependency resolver.
-            //DependencyResolver.SetDependencyResolver(WindsorDependencyResolver.ConfigureAndGet(container =>
-            //      {
-            //          container.Register(Component.For<IInjectionTest>().ImplementedBy<InjectionTest>());
-            //      }));
+            //DependencyResolver.SetDependencyResolver(
+            //    new WindsorDependencyResolver().Configure(
+            //        container =>
+            //        {
+            //            container.Register(Component.For<IInjectionTest>().ImplementedBy<InjectionTest>());
+            //        }));
         }
     }
 }
